@@ -1,0 +1,39 @@
+generated: '2026-07-19'
+method: searched
+source: https://www.hellolanding.com/.well-known/mcp/server-card.json
+sources:
+- https://www.hellolanding.com/.well-known/mcp/server-card.json
+- https://www.hellolanding.com/api/public
+- https://www.hellolanding.com/llms.txt
+- openapi/landing-public-openapi.json
+docs: https://www.hellolanding.com/api/public
+summary:
+  types: [none]
+  api_key_in: []
+  oauth2_flows: []
+  authentication_required: false
+schemes: []
+model:
+  type: none
+  detail: >-
+    Landing's public surface is deliberately unauthenticated. The MCP server
+    card records auth.type "none" ("Unauthenticated, read-only. Rate limits may
+    apply."), the OpenAPI declares no components.securitySchemes and no
+    top-level security, the REST reference states "No auth.", and the embedded
+    schema.org Service block carries authenticationRequired = "false".
+  verified: >-
+    Live unauthenticated calls to /api/public/markets, /api/public/search and
+    /api/public/status returned 200 on 2026-07-19.
+scope:
+  public_surface: >-
+    Read-only catalog access — markets, filters, search, home detail,
+    flex options, quotes, market info, policy FAQ, status.
+  boundary: >-
+    Reservation completion and payment are not exposed. Anything under /api/
+    other than /api/public is disallowed to bots in robots.txt and is not part
+    of the public contract. No authenticated/partner API is publicly documented.
+oauth_scopes: null
+oauth_scopes_note: >-
+  No OAuth surface exists, so no scopes/ artifact is produced for this provider
+  (per the OAuth-only rule in the enrichment contract).
+cross_ref: conventions/landing-conventions.yml
