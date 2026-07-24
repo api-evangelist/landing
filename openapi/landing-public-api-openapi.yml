@@ -1,0 +1,403 @@
+openapi: 3.1.0
+info:
+  title: Landing API (HTTP GET) Public API
+  version: 1.0.0
+  description: 'Read-only GET mirror of Landing''s public MCP server. Same capabilities, callable with plain HTTP GET — for agents that cannot use MCP. No auth. Agent guide (llms.txt): https://www.hellolanding.com/llms.txt'
+servers:
+- url: https://www.hellolanding.com
+tags:
+- name: Public
+paths:
+  /api/public/markets:
+    get:
+      operationId: markets
+      summary: List the Landing markets currently accepting bookings (one row per market).
+      parameters:
+      - name: state
+        in: query
+        required: false
+        description: Optional 2-letter state abbreviation (e.g. "AL", "TX") to filter by.
+        schema:
+          type: string
+        example: AL
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                markets:
+                - slug: birmingham
+                  name: Birmingham
+                  state: AL
+                count: 1
+        '400':
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Unknown home or market
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Public
+  /api/public/market-filters:
+    get:
+      operationId: market_filters
+      summary: Returns all available filter options for a given market — bedroom counts, amenities, price range, bathroom options, neighborhoods, and sort orders.
+      parameters:
+      - name: market
+        in: query
+        required: true
+        description: Market slug (e.g. "austin-tx"). Use list_markets to discover slugs.
+        schema:
+          type: string
+        example: birmingham
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                market:
+                  slug: birmingham
+                bedrooms:
+                - 1
+                - 2
+                amenities:
+                - label: Pets allowed
+                  filter: pets
+        '400':
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Unknown home or market
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Public
+  /api/public/search:
+    get:
+      operationId: search
+      summary: Search Landing's published furnished apartments in a given market.
+      parameters:
+      - name: market
+        in: query
+        required: true
+        description: Market slug (e.g. "birmingham", "austin-tx"). Use list_markets to discover slugs.
+        schema:
+          type: string
+        example: birmingham
+      - name: check_in
+        in: query
+        required: false
+        description: Move-in date (YYYY-MM-DD). Filters to homes available on or before this date.
+        schema:
+          type: string
+        example: '2026-09-01'
+      - name: check_out
+        in: query
+        required: false
+        description: Move-out date (YYYY-MM-DD) for a fixed stay, or "indefinite" for LandingFlex.
+        schema:
+          type: string
+        example: '2026-12-01'
+      - name: bedrooms
+        in: query
+        required: false
+        description: Minimum bedroom count (0 = studio).
+        schema:
+          type: integer
+        example: 1
+      - name: max_price
+        in: query
+        required: false
+        description: Maximum monthly rent in USD.
+        schema:
+          type: integer
+        example: 3500
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                market:
+                  slug: birmingham
+                total_count: 12
+                homes:
+                - slug: apartment-in-birmingham-example
+        '400':
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Unknown home or market
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Public
+  /api/public/homes/{slug}:
+    get:
+      operationId: home
+      summary: Fetch a single Landing home by its slug — property details, amenities, photos, **flex pricing**, **the full availability calendar**, and a pre-filled `reservation_link` so the agent doesn't have to probe dates or assemble booking URLs by hand (get_apartment already returns the full calendar).
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: Home slug (e.g. "apartment-in-birmingham-landing-midtown-200-5").
+        schema:
+          type: string
+        example: apartment-in-birmingham-example
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                slug: apartment-in-birmingham-example
+                bedrooms: 1
+                photos: []
+        '400':
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Unknown home or market
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Public
+  /api/public/homes/{slug}/flex-options:
+    get:
+      operationId: flex_options
+      summary: Return the flex (open-ended) commitment tiers a given home accepts, so the agent doesn't suggest a `committed_nights` value the home will reject.
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: Home slug to inspect.
+        schema:
+          type: string
+        example: apartment-in-birmingham-example
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                home_slug: apartment-in-birmingham-example
+                available_tiers:
+                - committed_nights: 180
+        '400':
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Unknown home or market
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Public
+  /api/public/homes/{slug}/quote:
+    get:
+      operationId: quote
+      summary: 'Real, date-specific anonymous quote for a home. Mirrors what an unauthenticated visitor sees in checkout: monthly rent after seasonal adjustments and length-of-stay discounts, the first-month charge, ongoing monthly cost, and an estimated total.'
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: Home slug to quote.
+        schema:
+          type: string
+        example: apartment-in-birmingham-example
+      - name: check_in
+        in: query
+        required: true
+        description: Move-in date (YYYY-MM-DD).
+        schema:
+          type: string
+        example: '2026-09-01'
+      - name: check_out
+        in: query
+        required: true
+        description: Move-out date (YYYY-MM-DD) for a fixed stay, or the literal string "indefinite" for flex.
+        schema:
+          type: string
+        example: '2026-12-01'
+      - name: cats
+        in: query
+        required: false
+        description: Number of cats, if any. Priced into charge_schedule; omit or pass 0 for no cats.
+        schema:
+          type: integer
+      - name: dogs
+        in: query
+        required: false
+        description: Number of dogs, if any. Priced into charge_schedule; omit or pass 0 for no dogs.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                home_slug: apartment-in-birmingham-example
+                charge_schedule:
+                  total_cost: 6300.0
+        '400':
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Unknown home or market
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Public
+  /api/public/market-info:
+    get:
+      operationId: market_info
+      summary: 'Market context for a Landing market: average monthly rent by bedroom count, total published inventory, and the neighborhoods with the most availability — useful for cross-market comparisons ("is Austin or Dallas cheaper for a 1BR?") without paging through search_apartments.'
+      parameters:
+      - name: market
+        in: query
+        required: true
+        description: Market slug. Use list_markets to discover slugs.
+        schema:
+          type: string
+        example: birmingham
+      - name: home
+        in: query
+        required: false
+        description: Optional. When given, the response also includes this home's neighborhood context (description, walk/transit/bike score).
+        schema:
+          type: string
+        example: apartment-in-birmingham-example
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                market:
+                  slug: birmingham
+                inventory_count: 42
+                average_rent_by_bedroom: []
+                popular_neighborhoods: []
+        '400':
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Unknown home or market
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Public
+  /api/public/policies-faq:
+    get:
+      operationId: policies_faq
+      summary: Grounded, conservative answers to the most common Landing policy questions (deposits, pets, parking, cancellation, qualification, LandingFlex, utilities, move-in). Use this instead of guessing at policy specifics — where an exact number (deposit amount, cancellation window) depends on the home/market/reservation, the answer says so explicitly and points to get_quote, checkout, or Landing support rather than inventing a figure.
+      parameters:
+      - name: q
+        in: query
+        required: false
+        description: Optional — return only this topic's entry. Omit to get all entries.
+        schema:
+          type: string
+        example: pets
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                entries:
+                - topic: pets
+                  answer: Pet policies are set per home.
+        '400':
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Unknown home or market
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Public
+  /api/public/status:
+    get:
+      operationId: status
+      summary: Health check.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                status: ok
+        '400':
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Unknown home or market
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Public
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+          required:
+          - code
+          - message
