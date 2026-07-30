@@ -1,22 +1,70 @@
 aid: landing
 name: Landing
-description: 'Landing is a company surfaced as a portfolio company of foundry-group and added to the API
-  Evangelist network as a stub for enrichment. Sector: proptech. This profile is a lead awaiting the enrichment
-  pipeline.'
+description: >-
+  Landing rents fully-furnished apartments for flexible monthly, short-term, and open-ended
+  (LandingFlex) stays across 250+ US markets, booked entirely online with no security deposit and
+  24/7 local support. Landing operates one of the more complete agent-native API surfaces in
+  proptech: a public, unauthenticated, read-only REST API and a public MCP server that expose the
+  same nine capabilities — market discovery, filter vocabularies, apartment search, home detail with
+  full availability calendars, LandingFlex commitment tiers, real anonymous quotes from the pricing
+  engine that powers checkout, market statistics, and grounded policy answers. Discovery is wired
+  end to end: an RFC 9727 api-catalog, an llms.txt agent guide, an OpenAPI 3.1 document and tool
+  catalog generated from the live tool set, an agentskills.io index, schema.org JSON-LD, and a
+  robots.txt that steers agents to the API instead of scraping. Reservations are not exposed —
+  read tools return checkout links and a person completes payment on the website.
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://files.hellolanding.com/home.png
 url: https://raw.githubusercontent.com/api-evangelist/landing/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - foundry-group
-x-tier: stub
-x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
 - Proptech
-apis: []
+- Real Estate
+- Rentals
+- Furnished Apartments
+- Corporate Housing
+- Travel
+- Agent Native
+- MCP
+- Search
+apis:
+- aid: landing:landing-public-api
+  name: Landing Public API
+  description: The Public API from Landing — 9 operation(s) for public.
+  humanURL: https://www.hellolanding.com/api/public
+  baseURL: https://www.hellolanding.com/api/public
+  tags:
+  - Public
+  properties:
+  - type: OpenAPI
+    url: openapi/landing-public-api-openapi.yml
+  - type: Documentation
+    url: https://www.hellolanding.com/api/public
+  - type: APIReference
+    url: https://www.hellolanding.com/api/public/tools
+  - type: Examples
+    url: examples/landing-public-examples.yml
+  - type: ErrorCatalog
+    url: errors/landing-problem-types.yml
+  - type: DataModel
+    url: data-model/landing-data-model.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -25,3 +73,62 @@ maintainers:
 common:
 - type: Website
   url: https://www.hellolanding.com
+- type: DeveloperPortal
+  url: https://www.hellolanding.com/api/public
+- type: Documentation
+  url: https://www.hellolanding.com/api/public
+- type: APIReference
+  url: https://www.hellolanding.com/api/public/tools
+- type: GettingStarted
+  url: https://www.hellolanding.com/llms.txt
+- type: MCPServer
+  url: mcp/landing-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: AgenticAccess
+  url: agentic-access/landing-agentic-access.yml
+- type: LLMsTxt
+  url: llms/landing-llms.txt
+- type: WellKnown
+  url: well-known/landing-well-known.yml
+- type: APICatalog
+  url: https://www.hellolanding.com/.well-known/api-catalog
+- type: Authentication
+  url: authentication/landing-authentication.yml
+- type: Conventions
+  url: conventions/landing-conventions.yml
+- type: ErrorCatalog
+  url: errors/landing-problem-types.yml
+- type: Examples
+  url: examples/landing-public-examples.yml
+- type: DataModel
+  url: data-model/landing-data-model.yml
+- type: Overlay
+  url: overlays/landing-public-overlay.yaml
+- type: Conformance
+  url: conformance/landing-conformance.yml
+- type: Lifecycle
+  url: lifecycle/landing-lifecycle.yml
+- type: DomainSecurity
+  url: security/landing-domain-security.yml
+- type: GitHubOrganization
+  url: https://github.com/hellolanding
+- type: Support
+  url: https://www.hellolanding.com/help-center
+- type: Blog
+  url: https://www.hellolanding.com/blog
+- type: BlogRSS
+  url: https://www.hellolanding.com/blog/feed
+- type: SignUp
+  url: https://www.hellolanding.com/users/signin
+- type: TermsOfService
+  url: https://www.hellolanding.com/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.hellolanding.com/privacy
+- type: FAQ
+  url: https://www.hellolanding.com/faq
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
