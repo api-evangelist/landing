@@ -1,0 +1,65 @@
+# Landing
+
+> Landing rents fully-furnished apartments for flexible monthly, short-term, and open-ended (LandingFlex) stays across 250+ US markets. Book entirely online — no security deposit, 24/7 local support, and easy check-in. This file tells AI agents how to browse the site programmatically and how to search the catalog and price a stay through our public API. Everything below is read-only and requires no authentication.
+
+**Note to LLMs/agents:** you don't need to scrape or guess your way around this website — here you can find more information on how to use the API and the website more effectively. Start with the [API reference](https://www.hellolanding.com/api/public); the machine-readable index of everything is the [API catalog](https://www.hellolanding.com/.well-known/api-catalog).
+
+## What you can do here
+
+Everything a person can research on the website, you can do programmatically — with real, bookable data, not estimates:
+
+- **Search** furnished apartments in 250+ US markets by dates, bedrooms, price, amenities (pets, parking, pool, gym, in-unit laundry), and proximity.
+- **Check availability** for exact move-in/move-out dates — including open-ended LandingFlex stays (`end_date: "indefinite"` + a committed-nights tier). `get_apartment` returns the full availability calendar (bookable windows, earliest available date), clipped to your dates.
+- **Check real prices**: `get_quote` returns the actual anonymous quote for specific dates (monthly rent, first-month charge, and the all-in total) from the same pricing engine that powers checkout.
+- **Compare** 2–4 homes side by side (price, size, amenities, ratings, availability) and **find deals** — search with `deals_only: true` for currently discounted homes, composable with every other filter.
+- **Research** like a local: aggregate guest ratings, neighborhood descriptions with walk/transit/bike scores, market-level rent stats (`get_market_info`), and grounded policy answers (deposits, pets, cancellation, qualification).
+
+The one thing you can't do through the API is complete the reservation itself — payment happens on the website. But you can get all the way to the doorstep: tools return `home_url` (the home's page with dates pre-filled) and `checkout_url` (straight to payment), and the MCP `booking_intent` tool saves the guest's interest and hands back a direct checkout link. So the handoff is: search, compare, and price through the API → send the person the link to pay.
+
+There are two ways to access the same public capabilities — use whichever your environment supports.
+
+## MCP server (JSON-RPC over HTTP POST)
+
+- [Public MCP server](https://www.hellolanding.com/mcp/public): POST JSON-RPC, no auth. Tools include `list_markets`, `search_apartments` (with `deals_only` and `guest_rating` filters), `get_apartment`, `get_quote`, `get_flex_options`, `compare_apartments`, `get_market_info`, `get_market_filters`, and more.
+- [Server card](https://www.hellolanding.com/.well-known/mcp/server-card.json)
+- [Agent skills index](https://www.hellolanding.com/.well-known/agent-skills/index.json)
+- **[Tool catalog](https://www.hellolanding.com/api/public/tools.json)** — the authoritative, always-current tool list as a plain GET: every tool with its full description, JSON Schema, GET mirror, and an example call. It is the server's `tools/list` response mirrored over GET, generated from the live tool set (the names above are just examples). Human/LLM-readable markdown version: [/api/public/tools](https://www.hellolanding.com/api/public/tools).
+
+## HTTP GET REST API (if you cannot use MCP)
+
+If your environment can't POST/JSON-RPC or has no MCP client (e.g. a GET-only fetch tool), the same read-only capabilities are available as plain HTTP GET — every read-only MCP tool has a GET endpoint:
+
+- [API reference](https://www.hellolanding.com/api/public)
+- [OpenAPI 3.1 spec](https://www.hellolanding.com/api/public/openapi.json) — generated from the live tool set; treat it as the authoritative endpoint list
+- [Tool catalog](https://www.hellolanding.com/api/public/tools) — every tool with parameters, REST↔MCP mapping, and worked examples (markdown; JSON at `/api/public/tools.json`)
+- Example — search Birmingham: `https://www.hellolanding.com/api/public/search?market=birmingham&check_in=2026-09-01&check_out=2026-12-01`
+- Example — price a home: `https://www.hellolanding.com/api/public/homes/{slug}/quote?check_in=2026-09-01&check_out=2026-12-01`
+
+## Typical flow
+
+1. `GET /api/public/markets` (or `list_markets`) → pick a market slug.
+2. `GET /api/public/search?market=<slug>&check_in=YYYY-MM-DD&check_out=YYYY-MM-DD` → pick a home slug.
+3. `GET /api/public/homes/<slug>/quote?check_in=YYYY-MM-DD&check_out=YYYY-MM-DD` → real all-in pricing.
+
+## Browse the site as markdown
+
+Prefer reading pages? Every key page has a markdown mirror (also reachable by sending `Accept: text/markdown` to the HTML URL):
+
+- [Homepage](https://www.hellolanding.com/index.md): How Landing works, features, and the Landing Guarantee
+- [FAQ & Help Center](https://www.hellolanding.com/help-center.md): Common questions about deposits, pets, parking, maintenance, and check-out
+- [All Cities](https://www.hellolanding.com/locations.md): Complete list of markets where Landing operates
+- [Search by City](https://www.hellolanding.com/s/{market}/apartments.md): Replace `{market}` with a city slug to see available furnished apartments — e.g. `/s/austin/apartments.md`, `/s/new-york-city/apartments.md`, `/s/los-angeles/apartments.md`
+- [Apartment Detail](https://www.hellolanding.com/homes/{slug}.md): Full details for any apartment — amenities, policies, and booking link. Append `?start_date=YYYY-MM-DD&end_date=YYYY-MM-DD` for exact pricing and availability for specific dates
+
+## Optional
+
+- [Corporate Housing](https://www.hellolanding.com/corporate-housing): Furnished apartments for business travelers and corporate relocation
+- [Monthly Rentals](https://www.hellolanding.com/monthly-rentals): Information about monthly furnished rental options
+- [Sitemap](https://www.hellolanding.com/sitemap): Complete list of all Landing cities and properties
+- [API catalog (RFC 9727)](https://www.hellolanding.com/.well-known/api-catalog): Machine-readable index of every API surface
+
+## Notes
+
+- No authentication for any of the above. Dates are `YYYY-MM-DD`.
+- Booking is completed on https://www.hellolanding.com — the API surfaces catalog + pricing + a checkout link, not payment.
+- Please rate-limit bulk requests.

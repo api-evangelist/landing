@@ -1,0 +1,126 @@
+generated: '2026-07-19'
+method: searched
+source: https://www.hellolanding.com/api/public
+sources:
+- https://www.hellolanding.com/api/public
+- https://www.hellolanding.com/api/public/tools.json
+- https://www.hellolanding.com/llms.txt
+- openapi/landing-public-openapi.json
+- live response-header probe of /api/public/status
+
+authentication:
+  style: none
+  detail: >-
+    No authentication on any public endpoint or MCP tool. The server card
+    records auth.type "none" and the REST reference states "No auth." Both
+    transports expose the same read-only capability set.
+  cross_ref: authentication/landing-authentication.yml
+
+transports:
+- name: MCP
+  protocol: JSON-RPC over HTTP POST (streamable-http)
+  endpoint: https://www.hellolanding.com/mcp/public
+- name: REST
+  protocol: plain HTTP GET
+  base: https://www.hellolanding.com/api/public
+  note: >-
+    Every read-only MCP tool has a 1:1 GET mirror. booking_intent_tool and
+    search_apartments_on_map are MCP-only.
+
+cors:
+  open: true
+  detail: 'REST reference states "CORS open."; access-control-allow-headers: Content-Type observed.'
+
+pagination:
+  style: page-number
+  applies_to: [search_apartments_tool, 'GET /api/public/search']
+  params:
+    page: 1-indexed, default 1
+    per_page: default 25, max 50
+  response_fields:
+  - total_count
+  - total_pages
+  guidance: >-
+    Fetch subsequent pages by incrementing page while page <= total_pages.
+  source: https://www.hellolanding.com/api/public/tools.json
+
+idempotency:
+  key_header: null
+  supported: false
+  detail: >-
+    Landing documents no idempotency-key contract. Eight of the nine catalogued
+    tools are safe HTTP GET reads and are idempotent by HTTP semantics; the one
+    write-side tool (booking_intent_tool, MCP-only) exposes no idempotency key
+    or dedupe token. No Idempotency pointer is emitted for this provider.
+
+request_tracing:
+  header: x-request-id
+  observed: true
+  detail: >-
+    Responses carry x-request-id (32-char hex) and x-runtime. Quote the
+    x-request-id when contacting support@hellolanding.com.
+
+error_envelope:
+  format: custom
+  rfc9457: false
+  shape: '{"error": {"code": "...", "message": "..."}}'
+  content_type: application/json; charset=utf-8
+  statuses:
+    400: bad input
+    404: unknown home/market
+  observed_example: '{"error":{"code":"not_found","message":"Unknown market \"zzznotreal\". Call list_markets to see available slugs."}}'
+  note: >-
+    Error messages are agent-directed — they name the recovery tool to call
+    next rather than only describing the failure.
+  cross_ref: errors/landing-problem-types.yml
+
+rate_limits:
+  documented: false
+  signal_headers: []
+  detail: >-
+    The MCP server card notes "Rate limits may apply" but publishes no limit
+    values and no RateLimit/Retry-After headers were observed on probes.
+
+versioning:
+  scheme: none-in-path
+  current: '1.0.0'
+  detail: >-
+    OpenAPI info.version and the MCP server card both report 1.0.0. The path
+    is unversioned (/api/public); the tool catalog and OpenAPI are generated
+    from the live tool set, so the spec is the moving contract.
+  cross_ref: lifecycle/landing-lifecycle.yml
+
+data_conventions:
+  dates: YYYY-MM-DD
+  open_ended_stays: >-
+    check_out (REST) / end_date (MCP) accepts the literal "indefinite" for an
+    open-ended LandingFlex stay, paired with a committed-nights tier from
+    get_flex_options.
+  currency: USD
+  identifiers:
+  - entity: market
+    form: slug
+    example: birmingham
+  - entity: home
+    form: slug
+    discover_via: search
+  caching: 'cache-control: no-store observed on /api/public/status'
+
+expansion:
+  supported: false
+  related: >-
+    search accepts include_hero_images (default on, capped independent of
+    per_page) to trim embedded image payloads — a payload-shrinking flag
+    rather than a general expansion/sparse-fieldset facility.
+
+handoff:
+  detail: >-
+    The API cannot complete a reservation. Read tools return home_url and
+    checkout_url, and booking_intent_tool returns a direct checkout link, so an
+    agent hands the guest off to the website to pay.
+
+discovery:
+  api_catalog: https://www.hellolanding.com/.well-known/api-catalog
+  llms_txt: https://www.hellolanding.com/llms.txt
+  agent_skills: https://www.hellolanding.com/.well-known/agent-skills/index.json
+  cross_ref: well-known/landing-well-known.yml

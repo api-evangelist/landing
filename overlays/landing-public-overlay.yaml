@@ -1,0 +1,79 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Landing Public API
+  version: 1.0.0
+extends: openapi/landing-public-openapi.json
+x-generated: '2026-07-19'
+x-method: generated
+x-source: openapi/landing-public-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-slug: landing
+    x-apievangelist-enriched: '2026-07-19'
+    x-api-catalog: https://www.hellolanding.com/.well-known/api-catalog
+    x-llms-txt: https://www.hellolanding.com/llms.txt
+    x-mcp-server: https://www.hellolanding.com/mcp/public
+    x-agent-skills: https://www.hellolanding.com/.well-known/agent-skills/index.json
+    contact:
+      name: Landing Support
+      email: support@hellolanding.com
+      url: https://www.hellolanding.com/help-center
+    termsOfService: https://www.hellolanding.com/terms-of-service
+- target: $
+  update:
+    x-authentication: none
+    x-error-envelope: '{"error": {"code": "...", "message": "..."}}'
+    x-request-id-header: x-request-id
+    tags:
+    - name: markets
+      description: Discover and compare the US markets where Landing has bookable inventory.
+    - name: homes
+      description: Fetch furnished apartments, their availability calendars, and flex tiers.
+    - name: pricing
+      description: Real anonymous quotes from the pricing engine that powers checkout.
+    - name: policies
+      description: Grounded answers to common Landing policy questions.
+    - name: operations
+      description: Service health.
+- target: $.paths['/api/public/markets'].get
+  update:
+    tags: [markets]
+- target: $.paths['/api/public/market-filters'].get
+  update:
+    tags: [markets]
+- target: $.paths['/api/public/market-info'].get
+  update:
+    tags: [markets]
+- target: $.paths['/api/public/search'].get
+  update:
+    tags: [homes]
+    x-pagination:
+      style: page-number
+      params: [page, per_page]
+      per_page_default: 25
+      per_page_max: 50
+      response_fields: [total_count, total_pages]
+    x-mcp-tool: search_apartments_tool
+- target: $.paths['/api/public/homes/{slug}'].get
+  update:
+    tags: [homes]
+    x-mcp-tool: get_apartment_tool
+- target: $.paths['/api/public/homes/{slug}/flex-options'].get
+  update:
+    tags: [homes]
+    x-mcp-tool: get_flex_options_tool
+- target: $.paths['/api/public/homes/{slug}/quote'].get
+  update:
+    tags: [pricing]
+    x-mcp-tool: get_quote_tool
+    x-handoff: >-
+      Returns checkout_url; the reservation itself must be completed by a person
+      on the website.
+- target: $.paths['/api/public/policies-faq'].get
+  update:
+    tags: [policies]
+    x-mcp-tool: get_policies_faq_tool
+- target: $.paths['/api/public/status'].get
+  update:
+    tags: [operations]

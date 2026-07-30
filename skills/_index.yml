@@ -1,0 +1,34 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/landing-public-openapi.json
+note: >-
+  Landing publishes its own agent-skills index at
+  /.well-known/agent-skills/index.json (captured verbatim as
+  landing-agent-skills-index.json — 22 advertised skills across web-mcp, mcp and
+  http-get transports). Those entries are tool pointers rather than packaged
+  operating instructions, and the three web-mcp skill markdown URLs it lists
+  under /skills/*.md return 404, so the two skills below are generated from the
+  provider's OpenAPI and grounded in verified operationIds.
+provider_published:
+  index: https://www.hellolanding.com/.well-known/agent-skills/index.json
+  file: landing-agent-skills-index.json
+  schema: https://agentskills.io/schemas/v0.2.0.json
+  advertised_skills: 22
+  markdown_bodies_available: false
+skills:
+- file: landing-find-and-price-a-stay.md
+  name: Find and price a Landing stay
+  description: >-
+    Search furnished apartments in a US market for specific dates, pick a home,
+    get a real all-in quote, and hand the guest a checkout link.
+  api: openapi/landing-public-openapi.json
+  operations: [markets, market_filters, search, home, flex_options, quote]
+  mcp_tools: [list_markets_tool, get_market_filters_tool, search_apartments_tool, get_apartment_tool, get_flex_options_tool, get_quote_tool, booking_intent_tool]
+- file: landing-compare-markets-and-answer-policy.md
+  name: Compare Landing markets and answer policy questions
+  description: >-
+    Compare cities on cost and inventory using market statistics, and answer
+    deposit/pet/cancellation questions from Landing's grounded policy FAQ.
+  api: openapi/landing-public-openapi.json
+  operations: [markets, market_info, market_filters, policies_faq, status]
+  mcp_tools: [list_markets_tool, get_market_info, get_market_filters_tool, get_policies_faq_tool]

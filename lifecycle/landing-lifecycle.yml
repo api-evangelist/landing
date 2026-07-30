@@ -1,0 +1,57 @@
+generated: '2026-07-19'
+method: searched
+source: https://www.hellolanding.com/api/public/openapi.json
+versioning:
+  scheme: none-in-path
+  current: '1.0.0'
+  path_versioned: false
+  base: https://www.hellolanding.com/api/public
+  detail: >-
+    OpenAPI info.version and the MCP server card both report 1.0.0. There is no
+    version segment in the path and no version header. The OpenAPI document and
+    the tool catalog are generated from the live tool set, which Landing states
+    explicitly ("generated from the live tool set, so it cannot go stale") —
+    the published spec is the moving contract rather than a pinned release.
+  mcp_schema_version: '2024-11-05'
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  deprecated_operations: []
+  detail: >-
+    No deprecation or sunset policy is published, and no RFC 8594 Sunset /
+    Deprecation headers were observed. No operation in the OpenAPI is marked
+    deprecated.
+sla:
+  url: null
+  uptime_target: null
+  published: false
+status:
+  status_page: null
+  health_endpoint: https://www.hellolanding.com/api/public/status
+  health_operation: openapi/landing-public-openapi.json#status
+  health_response: '{"status":"ok"}'
+  detail: >-
+    Landing exposes a machine-readable health check (indexed as "status" in the
+    RFC 9727 api-catalog) but publishes no human status/incident page —
+    status.hellolanding.com does not resolve. No StatusPage pointer is emitted.
+changelog:
+  url: null
+  published: false
+  detail: /changelog returns 404; no dated API changelog was found.
+support:
+  contact: support@hellolanding.com
+  help_center: https://www.hellolanding.com/help-center
+stability_signals:
+- >-
+  Spec and tool catalog auto-generated from the live tool set — reduces drift
+  but means additive tool changes can appear without an announcement.
+- >-
+  robots.txt, llms.txt, the api-catalog and the server card all cross-reference
+  the same endpoints, so discovery stays consistent across surfaces.
+gaps:
+- No versioning or deprecation policy
+- No changelog
+- No public status page or SLA
+- No published rate-limit values

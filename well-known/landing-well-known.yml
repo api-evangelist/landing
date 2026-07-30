@@ -1,0 +1,48 @@
+generated: '2026-07-19'
+method: searched
+source: live probe of https://www.hellolanding.com/.well-known/
+host: https://www.hellolanding.com
+documents:
+- path: /.well-known/api-catalog
+  status: 200
+  file: landing-api-catalog.json
+  standard: RFC 9727
+  note: >-
+    Linkset indexing every API surface — service-desc (OpenAPI 3.1, tool
+    catalog), service-doc (REST reference, tool markdown, llms.txt),
+    service-meta (agent-skills index) and status.
+- path: /.well-known/mcp.json
+  status: 200
+  file: landing-mcp.json
+  note: MCP server card (identical payload to /.well-known/mcp/server-card.json).
+- path: /.well-known/mcp/server-card.json
+  status: 200
+  file: landing-mcp-server-card.json
+  note: MCP server card — streamable-http transport, auth type none, 4 capabilities.
+- path: /.well-known/agent-skills/index.json
+  status: 200
+  file: ../skills/landing-agent-skills-index.json
+  standard: agentskills.io v0.2.0
+  note: 22 advertised skills across web-mcp, mcp, and http-get transports.
+- path: /.well-known/security.txt
+  status: 404
+- path: /.well-known/openid-configuration
+  status: 404
+- path: /.well-known/oauth-authorization-server
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404
+also_advertised:
+- path: /llms.txt
+  status: 200
+  file: ../llms/landing-llms.txt
+  note: Linked from robots.txt, the api-catalog, and a <link rel="alternate"> tag.
+- path: /robots.txt
+  status: 200
+  note: >-
+    Explicitly allows /api/public, /mcp/public, /llms.txt, /.well-known/ and
+    /skills/ while disallowing the rest of /api/ — steering agents to the
+    public API instead of scraping.
+- path: /llms-full.txt
+  status: 200
+  note: Expanded agent guide; not captured (see .gitignore *-llms-full.txt).

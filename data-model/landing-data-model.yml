@@ -1,0 +1,138 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/landing-public-openapi.json
+sources:
+- openapi/landing-public-openapi.json
+- mcp/landing-tools.json
+note: >-
+  Landing's OpenAPI declares only a shared Error schema; the response shapes are
+  carried as in-spec examples rather than named components. The entity graph
+  below is derived from those response examples, the path structure, and the
+  tool catalog descriptions — not from named $ref schemas.
+entities:
+- name: Market
+  identifier: slug
+  id_form: lowercase-hyphenated city slug
+  examples: [birmingham, austin, new-york-city]
+  fields: [slug, name, state, timezone]
+  operations: [markets, market_filters, market_info]
+  detail: A US metro where Landing has bookable inventory (250+ markets).
+- name: MarketFilters
+  identifier: null
+  parent: Market
+  fields: [bedroom_counts, amenities, price_range, bathroom_options, neighborhoods, sort_options]
+  operations: [market_filters]
+  detail: The valid filter vocabulary for one market; call before search to validate inputs.
+- name: MarketInfo
+  identifier: null
+  parent: Market
+  fields: [average_monthly_rent_by_bedroom, total_published_inventory, top_neighborhoods]
+  operations: [market_info]
+  detail: Aggregate market statistics for cross-market comparison.
+- name: Neighborhood
+  identifier: id/slug
+  parent: Market
+  fields: [id, slug, name]
+  operations: [market_filters, market_info]
+- name: Home
+  identifier: slug
+  id_form: property slug
+  discover_via: search
+  fields:
+  - slug
+  - price
+  - bedrooms
+  - bathrooms
+  - amenities
+  - photos
+  - neighborhood
+  - availability_calendar
+  - flex_pricing
+  - guest_rating
+  - home_url
+  - reservation_link
+  operations: [search, home]
+  detail: >-
+    A published furnished apartment. get_apartment returns the full availability
+    calendar and a pre-filled reservation_link.
+- name: FlexOption
+  identifier: committed_nights
+  parent: Home
+  fields: [committed_nights, pricing]
+  operations: [flex_options]
+  detail: >-
+    An open-ended (LandingFlex) commitment tier a specific home accepts,
+    filtered by the home's minimum nightly stay.
+- name: Quote
+  identifier: null
+  parent: Home
+  fields:
+  - monthly_rent
+  - first_month_charge
+  - ongoing_monthly_cost
+  - estimated_total
+  - checkout_url
+  operations: [quote]
+  detail: >-
+    A real, date-specific anonymous quote from the same pricing engine that
+    powers checkout. Not persisted — computed per request from home + dates.
+- name: BookingIntent
+  identifier: null
+  parent: Home
+  operations: []
+  mcp_tool: booking_intent_tool
+  write: true
+  detail: >-
+    Records a guest's interest in a home and returns a direct checkout link.
+    MCP-only; no HTTP GET mirror and no representation in the OpenAPI.
+- name: PolicyAnswer
+  identifier: null
+  fields: [question, answer]
+  operations: [policies_faq]
+  detail: >-
+    Grounded answers to common policy questions; deliberately declines to state
+    figures that depend on home/market/reservation.
+relationships:
+- from: Market
+  to: Home
+  type: has_many
+  via: market (query parameter)
+- from: Market
+  to: Neighborhood
+  type: has_many
+  via: market
+- from: Market
+  to: MarketFilters
+  type: has_one
+  via: market
+- from: Market
+  to: MarketInfo
+  type: has_one
+  via: market
+- from: Home
+  to: Market
+  type: belongs_to
+  via: market
+- from: Home
+  to: Neighborhood
+  type: belongs_to
+  via: neighborhood
+- from: Home
+  to: FlexOption
+  type: has_many
+  via: slug (path parameter)
+- from: Home
+  to: Quote
+  type: has_many
+  via: slug + check_in/check_out
+- from: Home
+  to: BookingIntent
+  type: has_many
+  via: home slug
+traversal:
+  canonical_path: Market -> Home -> Quote -> checkout_url
+  detail: >-
+    markets -> search(market, dates) -> homes/{slug}/quote(dates) is the
+    documented three-call flow; flex_options substitutes for fixed dates when
+    check_out is "indefinite".
+render: null

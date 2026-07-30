@@ -1,0 +1,50 @@
+generated: '2026-07-19'
+method: searched
+source: https://www.hellolanding.com/api/public
+derived_from: openapi/landing-public-openapi.json
+format: custom
+rfc9457: false
+envelope:
+  shape: '{"error": {"code": "...", "message": "..."}}'
+  schema: openapi/landing-public-openapi.json#/components/schemas/Error
+  required: [code, message]
+  content_type: application/json; charset=utf-8
+problems:
+- status: 400
+  code: null
+  title: Bad input
+  detail: >-
+    Malformed or invalid request parameters (bad date format, out-of-range
+    per_page, unusable filter value).
+  applies_to_all_operations: true
+  source: https://www.hellolanding.com/api/public
+- status: 404
+  code: not_found
+  title: Unknown market
+  detail: 'Observed: Unknown market "<slug>". Call list_markets to see available slugs.'
+  remediation: Call list_markets_tool / GET /api/public/markets to get valid market slugs.
+  source_operation: openapi/landing-public-openapi.json#search
+  verified: live probe 2026-07-19
+- status: 404
+  code: not_found
+  title: Home not found
+  detail: 'Observed: Home "<slug>" not found.'
+  remediation: >-
+    Re-run search for the market to obtain a current home slug; published
+    inventory changes as homes are booked.
+  source_operation: openapi/landing-public-openapi.json#home
+  verified: live probe 2026-07-19
+coverage:
+  operations_with_400: 9
+  operations_with_404: 9
+  note: >-
+    Every operation in the OpenAPI declares 200/400/404. No 401/403 exist
+    because the API is unauthenticated; no 5xx responses are declared.
+observations:
+- >-
+  Error messages are written for agents: they name the recovery tool to call
+  rather than only describing the failure.
+- >-
+  The error code vocabulary is not published as a registry; not_found is the
+  only code confirmed by live probe.
+cross_ref: conventions/landing-conventions.yml

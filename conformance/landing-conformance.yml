@@ -1,0 +1,74 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/landing-public-openapi.json
+sources:
+- openapi/landing-public-openapi.json
+- well-known/landing-api-catalog.json
+- well-known/landing-mcp-server-card.json
+- skills/landing-agent-skills-index.json
+- https://www.hellolanding.com/llms.txt
+standards:
+- id: openapi-3.1
+  conforms: true
+  evidence: 'openapi: 3.1.0 at /api/public/openapi.json, served as application/vnd.oai.openapi+json'
+- id: json-schema-2020-12
+  conforms: true
+  evidence: tool input_schema declares $schema https://json-schema.org/draft/2020-12/schema
+- id: mcp
+  conforms: true
+  version: '2024-11-05'
+  evidence: >-
+    Public MCP server at /mcp/public, streamable-http transport, server card at
+    /.well-known/mcp/server-card.json with schema_version 2024-11-05
+- id: rfc9727-api-catalog
+  conforms: true
+  evidence: >-
+    /.well-known/api-catalog returns an RFC 9727 linkset with service-desc,
+    service-doc, service-meta and status; also advertised via a
+    Link rel="api-catalog" response header and a <link> element
+- id: llms-txt
+  conforms: true
+  evidence: /llms.txt served as text/plain and cross-linked from robots.txt and the api-catalog
+- id: agentskills-io-0.2.0
+  conforms: true
+  evidence: /.well-known/agent-skills/index.json declares $schema https://agentskills.io/schemas/v0.2.0.json
+- id: schema-org
+  conforms: true
+  evidence: >-
+    JSON-LD WebSite (with a SearchAction EntryPoint targeting the public search
+    endpoint) and Service blocks embedded in the homepage
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors use a custom {"error":{"code","message"}} envelope as
+    application/json, not application/problem+json
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404
+- id: rfc8594-sunset
+  conforms: false
+  evidence: no Sunset/Deprecation headers observed; no deprecation policy published
+- id: oauth2
+  conforms: false
+  evidence: no securitySchemes; API is unauthenticated
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404
+- id: asyncapi
+  conforms: false
+  evidence: no event, streaming or webhook surface published
+- id: hsts
+  conforms: true
+  evidence: 'strict-transport-security: max-age=31536000; includeSubDomains (see security/landing-domain-security.yml)'
+compliance_program:
+  published: false
+  certifications: []
+  detail: >-
+    No trust center, certification list, or compliance program was found
+    (/trust, /security, trust.hellolanding.com all fail to resolve or 404), so
+    no Compliance pointer is emitted.
+assessment: >-
+  Landing conforms strongly to the emerging agent-native discovery stack
+  (OpenAPI 3.1, MCP, RFC 9727 api-catalog, llms.txt, agentskills.io, schema.org)
+  and weakly to the operational-maturity standards (no RFC 9457 errors, no
+  security.txt, no sunset policy).
