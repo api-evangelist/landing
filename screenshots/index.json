@@ -1,0 +1,11 @@
+[
+  {
+    "repo": "landing",
+    "captured_at": "2026-08-17T123950",
+    "source_url": "https://www.hellolanding.com/api/public",
+    "source_type": "DeveloperPortal",
+    "file": "landing-2026-08-17T123950.png",
+    "bytes": 205749,
+    "capture": "playwright-local"
+  }
+]

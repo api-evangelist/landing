@@ -11,10 +11,9 @@ server:
   url: https://www.hellolanding.com/mcp/public
   methods:
   - POST
-  description: >-
-    Read-only public access to Landing's furnished apartment catalog: search by
-    market and dates, fetch a home, check availability, get an anonymous quote.
-    No authentication is required to call any tool.
+  description: 'Read-only public access to Landing''s furnished apartment catalog: search by market and
+    dates, fetch a home, check availability, get an anonymous quote. No authentication is required to
+    call any tool.'
 auth:
   type: none
   notes: Unauthenticated, read-only. Rate limits may apply.
@@ -36,9 +35,8 @@ alternatives:
   http-get:
     base: https://www.hellolanding.com/api/public
     openapi: https://www.hellolanding.com/api/public/openapi.json
-    notes: >-
-      Same read-only capabilities as the MCP server, callable with plain HTTP
-      GET (no auth, JSON responses), for environments that cannot POST JSON-RPC.
+    notes: Same read-only capabilities as the MCP server, callable with plain HTTP GET (no auth, JSON
+      responses), for environments that cannot POST JSON-RPC.
 tool_count: 9
 tools:
 - name: list_markets_tool
@@ -46,9 +44,8 @@ tools:
   http_get: GET /api/public/markets
   source_operation: openapi/landing-public-openapi.json#markets
 - name: get_market_filters_tool
-  description: >-
-    Returns all available filter options for a given market — bedroom counts,
-    amenities, price range, bathroom options, neighborhoods, and sort orders.
+  description: Returns all available filter options for a given market — bedroom counts, amenities, price
+    range, bathroom options, neighborhoods, and sort orders.
   http_get: GET /api/public/market-filters
   source_operation: openapi/landing-public-openapi.json#market_filters
 - name: search_apartments_tool
@@ -56,53 +53,49 @@ tools:
   http_get: GET /api/public/search
   source_operation: openapi/landing-public-openapi.json#search
 - name: search_apartments_on_map
-  description: >-
-    Search Landing's published furnished apartments in a given market and render
-    the results as an interactive map (pins), not a card grid.
+  description: Search Landing's published furnished apartments in a given market and render the results
+    as an interactive map (pins), not a card grid.
   http_get: null
   source_operation: null
 - name: get_apartment_tool
-  description: >-
-    Fetch a single Landing home by its slug — property details, amenities,
-    photos, flex pricing, the full availability calendar, and a pre-filled
-    reservation_link.
+  description: Fetch a single Landing home by its slug — property details, amenities, photos, flex pricing,
+    the full availability calendar, and a pre-filled reservation_link.
   http_get: GET /api/public/homes/{slug}
   source_operation: openapi/landing-public-openapi.json#home
 - name: get_flex_options_tool
-  description: >-
-    Return the flex (open-ended) commitment tiers a given home accepts, so the
-    agent doesn't suggest a committed_nights value the home will reject.
+  description: Return the flex (open-ended) commitment tiers a given home accepts, so the agent doesn't
+    suggest a committed_nights value the home will reject.
   http_get: GET /api/public/homes/{slug}/flex-options
   source_operation: openapi/landing-public-openapi.json#flex_options
 - name: get_quote_tool
-  description: >-
-    Real, date-specific anonymous quote for a home — monthly rent after seasonal
-    adjustments and length-of-stay discounts, the first-month charge, ongoing
-    monthly cost, and an estimated total.
+  description: Real, date-specific anonymous quote for a home — monthly rent after seasonal adjustments
+    and length-of-stay discounts, the first-month charge, ongoing monthly cost, and an estimated total.
   http_get: GET /api/public/homes/{slug}/quote
   source_operation: openapi/landing-public-openapi.json#quote
 - name: booking_intent_tool
-  description: >-
-    Save the guest's interest in a home so Landing can follow up, then return a
-    direct checkout link. The only write-side tool; no HTTP GET mirror.
+  description: Save the guest's interest in a home so Landing can follow up, then return a direct checkout
+    link. The only write-side tool; no HTTP GET mirror.
   http_get: null
   source_operation: null
   write: true
 - name: get_market_info
-  description: >-
-    Market context for a Landing market: average monthly rent by bedroom count,
-    total published inventory, and the neighborhoods with the most availability.
+  description: 'Market context for a Landing market: average monthly rent by bedroom count, total published
+    inventory, and the neighborhoods with the most availability.'
   http_get: GET /api/public/market-info
   source_operation: openapi/landing-public-openapi.json#market_info
 - name: get_policies_faq_tool
-  description: >-
-    Grounded, conservative answers to the most common Landing policy questions
-    (deposits, pets, parking, cancellation, qualification, LandingFlex,
-    utilities, move-in).
+  description: Grounded, conservative answers to the most common Landing policy questions (deposits, pets,
+    parking, cancellation, qualification, LandingFlex, utilities, move-in).
   http_get: GET /api/public/policies-faq
   source_operation: openapi/landing-public-openapi.json#policies_faq
-notes: >-
-  Landing publishes the tool catalog as a GET mirror of the MCP tools/list
-  response, generated from the live tool set. The catalog reports 9 tools;
-  the agent-skills index additionally advertises search_apartments_on_map,
+notes: Landing publishes the tool catalog as a GET mirror of the MCP tools/list response, generated from
+  the live tool set. The catalog reports 9 tools; the agent-skills index additionally advertises search_apartments_on_map,
   which has no HTTP GET mirror.
+deployment:
+  mode: remote
+  endpoint: https://www.hellolanding.com/mcp/public
+  verified: probed
+  probe: live
+  tools: 12
+  checked: '2026-08-12'
+  source: catalog MCP census

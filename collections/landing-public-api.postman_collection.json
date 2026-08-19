@@ -1,0 +1,1729 @@
+{
+  "item": [
+    {
+      "id": "c8d458bd-dd51-4a30-b898-510c88ce5b8e",
+      "name": "Public",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "aff22802-b269-42c9-a972-e84e4b230f1e",
+          "name": "List the Landing markets currently accepting bookings (one row per market).",
+          "request": {
+            "name": "List the Landing markets currently accepting bookings (one row per market).",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "public",
+                "markets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "Optional 2-letter state abbreviation (e.g. \"AL\", \"TX\") to filter by."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "59eecdb1-7b52-4049-9e51-de324bfa96ce",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "markets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "state",
+                      "value": "AL"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"markets\": [\n    {\n      \"slug\": \"birmingham\",\n      \"name\": \"Birmingham\",\n      \"state\": \"AL\"\n    }\n  ],\n  \"count\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c70fa2c9-5d79-4bb3-bc0b-829845b2f981",
+              "name": "Invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "markets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "state",
+                      "value": "AL"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e09d4ae-3197-4afc-bce1-a6820e6c53ce",
+              "name": "Unknown home or market",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "markets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "state",
+                      "value": "AL"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "82d4254d-b7d7-40b4-8f7c-7d11670f7089",
+          "name": "Returns all available filter options for a given market — bedroom counts, amenities, price range, bathroom options, neighborhoods, and sort orders.",
+          "request": {
+            "name": "Returns all available filter options for a given market — bedroom counts, amenities, price range, bathroom options, neighborhoods, and sort orders.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "public",
+                "market-filters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Market slug (e.g. \"austin-tx\"). Use list_markets to discover slugs."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "81e6758e-4ed6-4f3e-8b55-f1573c64a304",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "market-filters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "birmingham"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"market\": {\n    \"slug\": \"birmingham\"\n  },\n  \"bedrooms\": [\n    1,\n    2\n  ],\n  \"amenities\": [\n    {\n      \"label\": \"Pets allowed\",\n      \"filter\": \"pets\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b41f46c8-7394-4ea6-8815-c6c812c73086",
+              "name": "Invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "market-filters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "birmingham"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3040a81c-0721-44d4-9712-5068e699a72a",
+              "name": "Unknown home or market",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "market-filters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "birmingham"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2364b9d3-be08-4e84-8f90-60a50467b149",
+          "name": "Search Landing's published furnished apartments in a given market.",
+          "request": {
+            "name": "Search Landing's published furnished apartments in a given market.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "public",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Market slug (e.g. \"birmingham\", \"austin-tx\"). Use list_markets to discover slugs."
+                },
+                {
+                  "disabled": false,
+                  "key": "check_in",
+                  "value": "<string>",
+                  "description": "Move-in date (YYYY-MM-DD). Filters to homes available on or before this date."
+                },
+                {
+                  "disabled": false,
+                  "key": "check_out",
+                  "value": "<string>",
+                  "description": "Move-out date (YYYY-MM-DD) for a fixed stay, or \"indefinite\" for LandingFlex."
+                },
+                {
+                  "disabled": false,
+                  "key": "bedrooms",
+                  "value": "<integer>",
+                  "description": "Minimum bedroom count (0 = studio)."
+                },
+                {
+                  "disabled": false,
+                  "key": "max_price",
+                  "value": "<integer>",
+                  "description": "Maximum monthly rent in USD."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4f1ace3a-7005-4461-9a8c-65b7bb55d9aa",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "birmingham"
+                    },
+                    {
+                      "key": "check_in",
+                      "value": "2026-09-01"
+                    },
+                    {
+                      "key": "check_out",
+                      "value": "2026-12-01"
+                    },
+                    {
+                      "key": "bedrooms",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_price",
+                      "value": "3500"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"market\": {\n    \"slug\": \"birmingham\"\n  },\n  \"total_count\": 12,\n  \"homes\": [\n    {\n      \"slug\": \"apartment-in-birmingham-example\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae2e9ed5-6e56-408b-9238-f981fa115aad",
+              "name": "Invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "birmingham"
+                    },
+                    {
+                      "key": "check_in",
+                      "value": "2026-09-01"
+                    },
+                    {
+                      "key": "check_out",
+                      "value": "2026-12-01"
+                    },
+                    {
+                      "key": "bedrooms",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_price",
+                      "value": "3500"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59b7a0f6-9c1d-42d3-8773-3512f84bfe83",
+              "name": "Unknown home or market",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "birmingham"
+                    },
+                    {
+                      "key": "check_in",
+                      "value": "2026-09-01"
+                    },
+                    {
+                      "key": "check_out",
+                      "value": "2026-12-01"
+                    },
+                    {
+                      "key": "bedrooms",
+                      "value": "1"
+                    },
+                    {
+                      "key": "max_price",
+                      "value": "3500"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5a08412e-6808-4243-b9dd-187d0cd722c4",
+          "name": "Fetch a single Landing home by its slug — property details, amenities, photos, **flex pricing**, **the full availability calendar**, and a pre-filled `reservation_link` so the agent doesn't have to probe dates or assemble booking URLs by hand (get_apartment already returns the full calendar).",
+          "request": {
+            "name": "Fetch a single Landing home by its slug — property details, amenities, photos, **flex pricing**, **the full availability calendar**, and a pre-filled `reservation_link` so the agent doesn't have to probe dates or assemble booking URLs by hand (get_apartment already returns the full calendar).",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "public",
+                "homes",
+                ":slug"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) Home slug (e.g. \"apartment-in-birmingham-landing-midtown-200-5\")."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1ecfc110-5689-4388-a2a8-b5825d62fe33",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "homes",
+                    ":slug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) Home slug (e.g. \"apartment-in-birmingham-landing-midtown-200-5\")."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"slug\": \"apartment-in-birmingham-example\",\n  \"bedrooms\": 1,\n  \"photos\": []\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "755724ea-8d15-442b-9bad-182a16921901",
+              "name": "Invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "homes",
+                    ":slug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) Home slug (e.g. \"apartment-in-birmingham-landing-midtown-200-5\")."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5c08626-09f0-4708-9877-9a051f24891f",
+              "name": "Unknown home or market",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "homes",
+                    ":slug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) Home slug (e.g. \"apartment-in-birmingham-landing-midtown-200-5\")."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "342b3ee7-a33c-420c-8db8-10cff2a0534c",
+          "name": "Return the flex (open-ended) commitment tiers a given home accepts, so the agent doesn't suggest a `committed_nights` value the home will reject.",
+          "request": {
+            "name": "Return the flex (open-ended) commitment tiers a given home accepts, so the agent doesn't suggest a `committed_nights` value the home will reject.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "public",
+                "homes",
+                ":slug",
+                "flex-options"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) Home slug to inspect."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a01a6081-fc8b-4eee-84af-8d3920b3b6b5",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "homes",
+                    ":slug",
+                    "flex-options"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) Home slug to inspect."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"home_slug\": \"apartment-in-birmingham-example\",\n  \"available_tiers\": [\n    {\n      \"committed_nights\": 180\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5259999d-71eb-4747-9ce1-fe3c185c5d8c",
+              "name": "Invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "homes",
+                    ":slug",
+                    "flex-options"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) Home slug to inspect."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d9492c7b-f6f0-40b2-ac4f-8768047e3fea",
+              "name": "Unknown home or market",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "homes",
+                    ":slug",
+                    "flex-options"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) Home slug to inspect."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9b45d830-bd83-4fd8-a5ba-cf38cbb6462c",
+          "name": "Real, date-specific anonymous quote for a home. Mirrors what an unauthenticated visitor sees in checkout: monthly rent after seasonal adjustments and length-of-stay discounts, the first-month charge, ongoing monthly cost, and an estimated total.",
+          "request": {
+            "name": "Real, date-specific anonymous quote for a home. Mirrors what an unauthenticated visitor sees in checkout: monthly rent after seasonal adjustments and length-of-stay discounts, the first-month charge, ongoing monthly cost, and an estimated total.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "public",
+                "homes",
+                ":slug",
+                "quote"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "check_in",
+                  "value": "<string>",
+                  "description": "(Required) Move-in date (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "check_out",
+                  "value": "<string>",
+                  "description": "(Required) Move-out date (YYYY-MM-DD) for a fixed stay, or the literal string \"indefinite\" for flex."
+                },
+                {
+                  "disabled": false,
+                  "key": "cats",
+                  "value": "<integer>",
+                  "description": "Number of cats, if any. Priced into charge_schedule; omit or pass 0 for no cats."
+                },
+                {
+                  "disabled": false,
+                  "key": "dogs",
+                  "value": "<integer>",
+                  "description": "Number of dogs, if any. Priced into charge_schedule; omit or pass 0 for no dogs."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) Home slug to quote."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e1a8279f-8e54-44d9-ab7f-f0247d40dfd0",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "homes",
+                    ":slug",
+                    "quote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "check_in",
+                      "value": "2026-09-01"
+                    },
+                    {
+                      "key": "check_out",
+                      "value": "2026-12-01"
+                    },
+                    {
+                      "key": "cats",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "dogs",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) Home slug to quote."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"home_slug\": \"apartment-in-birmingham-example\",\n  \"charge_schedule\": {\n    \"total_cost\": 6300\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab2e46c5-14f2-4db8-b2e8-df2c03662b14",
+              "name": "Invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "homes",
+                    ":slug",
+                    "quote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "check_in",
+                      "value": "2026-09-01"
+                    },
+                    {
+                      "key": "check_out",
+                      "value": "2026-12-01"
+                    },
+                    {
+                      "key": "cats",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "dogs",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) Home slug to quote."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1937d77b-a449-4143-bfc3-c6cdf062db03",
+              "name": "Unknown home or market",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "homes",
+                    ":slug",
+                    "quote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "check_in",
+                      "value": "2026-09-01"
+                    },
+                    {
+                      "key": "check_out",
+                      "value": "2026-12-01"
+                    },
+                    {
+                      "key": "cats",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "dogs",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) Home slug to quote."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d5b06bf-b350-45bf-a630-6229ff09240f",
+          "name": "Market context for a Landing market: average monthly rent by bedroom count, total published inventory, and the neighborhoods with the most availability — useful for cross-market comparisons (\"is Austin or Dallas cheaper for a 1BR?\") without paging through search_apartments.",
+          "request": {
+            "name": "Market context for a Landing market: average monthly rent by bedroom count, total published inventory, and the neighborhoods with the most availability — useful for cross-market comparisons (\"is Austin or Dallas cheaper for a 1BR?\") without paging through search_apartments.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "public",
+                "market-info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Market slug. Use list_markets to discover slugs."
+                },
+                {
+                  "disabled": false,
+                  "key": "home",
+                  "value": "<string>",
+                  "description": "Optional. When given, the response also includes this home's neighborhood context (description, walk/transit/bike score)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "30db2ec2-86a8-428c-90db-9b855778d582",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "market-info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "birmingham"
+                    },
+                    {
+                      "key": "home",
+                      "value": "apartment-in-birmingham-example"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"market\": {\n    \"slug\": \"birmingham\"\n  },\n  \"inventory_count\": 42,\n  \"average_rent_by_bedroom\": [],\n  \"popular_neighborhoods\": []\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "814162c5-fe40-4164-b3ab-0c00fc1f8c51",
+              "name": "Invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "market-info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "birmingham"
+                    },
+                    {
+                      "key": "home",
+                      "value": "apartment-in-birmingham-example"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5727361a-9a46-4308-88e3-c4e4409b6e3c",
+              "name": "Unknown home or market",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "market-info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "birmingham"
+                    },
+                    {
+                      "key": "home",
+                      "value": "apartment-in-birmingham-example"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "080b94fc-e185-4d9a-8c2d-429fe89e8405",
+          "name": "Grounded, conservative answers to the most common Landing policy questions (deposits, pets, parking, cancellation, qualification, LandingFlex, utilities, move-in). Use this instead of guessing at policy specifics — where an exact number (deposit amount, cancellation window) depends on the home/market/reservation, the answer says so explicitly and points to get_quote, checkout, or Landing support rather than inventing a figure.",
+          "request": {
+            "name": "Grounded, conservative answers to the most common Landing policy questions (deposits, pets, parking, cancellation, qualification, LandingFlex, utilities, move-in). Use this instead of guessing at policy specifics — where an exact number (deposit amount, cancellation window) depends on the home/market/reservation, the answer says so explicitly and points to get_quote, checkout, or Landing support rather than inventing a figure.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "public",
+                "policies-faq"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "Optional — return only this topic's entry. Omit to get all entries."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ba702124-c7a3-48b0-9a7e-678b695b3f46",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "policies-faq"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "pets"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"entries\": [\n    {\n      \"topic\": \"pets\",\n      \"answer\": \"Pet policies are set per home.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a81f8c35-cdb8-4db4-8158-64aad6e0c4b5",
+              "name": "Invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "policies-faq"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "pets"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a234f4b8-1351-47ae-b565-48fefebb8d86",
+              "name": "Unknown home or market",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "policies-faq"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "pets"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea53af87-ca3a-4af6-a3a4-bde059a9b31e",
+          "name": "Health check.",
+          "request": {
+            "name": "Health check.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "public",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4c94c15b-7f83-4c52-871b-d67856f23538",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b297610-0dc4-4566-ba42-a15f073e3177",
+              "name": "Invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4895aeb1-a4aa-4653-89c1-c64005ff0951",
+              "name": "Unknown home or market",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "public",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.hellolanding.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0d869e84-17c0-4e9c-b3dc-96b87dd6e899",
+    "name": "Landing API (HTTP GET) Public API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Read-only GET mirror of Landing's public MCP server. Same capabilities, callable with plain HTTP GET — for agents that cannot use MCP. No auth. Agent guide (llms.txt): https://www.hellolanding.com/llms.txt",
+      "type": "text/plain"
+    }
+  }
+}
