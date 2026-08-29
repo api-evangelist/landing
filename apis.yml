@@ -12,6 +12,18 @@ description: >-
   catalog generated from the live tool set, an agentskills.io index, schema.org JSON-LD, and a
   robots.txt that steers agents to the API instead of scraping. Reservations are not exposed —
   read tools return checkout links and a person completes payment on the website.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: unknown
