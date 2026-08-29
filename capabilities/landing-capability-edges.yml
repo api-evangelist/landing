@@ -1,0 +1,29 @@
+slug: landing
+provider: Landing
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Real Estate
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Public
+  spec_file: landing-public-api-openapi.yml
+  capability_id: BC-4950.20
+  capability_id_l1: BC-4950
+  capability_name: Vacancy Marketing & Listing
+  confidence: 0.7
+  evidence: GET /api/public/search  search  Search Landing's published furnished apartments in a given
+    market; GET /api/public/homes/{slug}  home  Fetch a single Landing home by its slug — property details,
+    amenities, photos, **flex pricing**, **the full availability calendar**
+  reason: Landing is the operator/landlord of furnished rental apartments and this API publishes available
+    inventory, market filters, availability calendars, anonymous rent quotes and policy answers to prospective
+    renters — landlord-side marketing and listing of vacant space. Sub-capability choice (vacancy marketing/listing
+    vs prospect handling) is somewhat ambiguous since the API is read-only discovery with no lead capture,
+    hence 0.7.
