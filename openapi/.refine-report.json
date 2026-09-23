@@ -1,7 +1,7 @@
 {
   "provider": "landing",
   "sources": [
-    "landing-public-api-openapi.yml"
+    "_original/landing-public-openapi.json"
   ],
   "outputs": [
     "landing-public-api-openapi.yml"
@@ -9,6 +9,22 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "landing-public-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "landing-public-openapi.json: tagged paths GET /api/public/markets -> Public",
+    "landing-public-openapi.json: tagged paths GET /api/public/market-filters -> Public",
+    "landing-public-openapi.json: tagged paths GET /api/public/search -> Public",
+    "landing-public-openapi.json: tagged paths GET /api/public/homes/{slug} -> Public",
+    "landing-public-openapi.json: tagged paths GET /api/public/homes/{slug}/flex-options -> Public",
+    "landing-public-openapi.json: tagged paths GET /api/public/homes/{slug}/quote -> Public",
+    "landing-public-openapi.json: tagged paths GET /api/public/market-info -> Public",
+    "landing-public-openapi.json: tagged paths GET /api/public/policies-faq -> Public",
+    "landing-public-openapi.json: tagged paths GET /api/public/status -> Public",
+    "landing-public-openapi.json: declared missing tag: Public",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "landing-public-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

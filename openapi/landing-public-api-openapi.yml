@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Landing API (HTTP GET) Public API
   version: 1.0.0
@@ -11,7 +11,7 @@ paths:
   /api/public/markets:
     get:
       operationId: markets
-      summary: List the Landing markets currently accepting bookings (one row per market).
+      summary: List the Landing markets currently accepting bookings (one row per market)
       parameters:
       - name: state
         in: query
@@ -48,7 +48,7 @@ paths:
   /api/public/market-filters:
     get:
       operationId: market_filters
-      summary: Returns all available filter options for a given market — bedroom counts, amenities, price range, bathroom options, neighborhoods, and sort orders.
+      summary: Returns all available filter options for a given market — bedroom counts…
       parameters:
       - name: market
         in: query
@@ -88,7 +88,7 @@ paths:
   /api/public/search:
     get:
       operationId: search
-      summary: Search Landing's published furnished apartments in a given market.
+      summary: Search Landing's published furnished apartments in a given market
       parameters:
       - name: market
         in: query
@@ -153,7 +153,7 @@ paths:
   /api/public/homes/{slug}:
     get:
       operationId: home
-      summary: Fetch a single Landing home by its slug — property details, amenities, photos, **flex pricing**, **the full availability calendar**, and a pre-filled `reservation_link` so the agent doesn't have to probe dates or assemble booking URLs by hand (get_apartment already returns the full calendar).
+      summary: Fetch a single Landing home by its slug — property details, amenities, photos…
       parameters:
       - name: slug
         in: path
@@ -188,7 +188,7 @@ paths:
   /api/public/homes/{slug}/flex-options:
     get:
       operationId: flex_options
-      summary: Return the flex (open-ended) commitment tiers a given home accepts, so the agent doesn't suggest a `committed_nights` value the home will reject.
+      summary: Return the flex (open-ended) commitment tiers a given home accepts, so the…
       parameters:
       - name: slug
         in: path
@@ -223,7 +223,7 @@ paths:
   /api/public/homes/{slug}/quote:
     get:
       operationId: quote
-      summary: 'Real, date-specific anonymous quote for a home. Mirrors what an unauthenticated visitor sees in checkout: monthly rent after seasonal adjustments and length-of-stay discounts, the first-month charge, ongoing monthly cost, and an estimated total.'
+      summary: Real, date-specific anonymous quote for a home.
       parameters:
       - name: slug
         in: path
@@ -284,7 +284,7 @@ paths:
   /api/public/market-info:
     get:
       operationId: market_info
-      summary: 'Market context for a Landing market: average monthly rent by bedroom count, total published inventory, and the neighborhoods with the most availability — useful for cross-market comparisons ("is Austin or Dallas cheaper for a 1BR?") without paging through search_apartments.'
+      summary: 'Market context for a Landing market: average monthly rent by bedroom count…'
       parameters:
       - name: market
         in: query
@@ -328,7 +328,7 @@ paths:
   /api/public/policies-faq:
     get:
       operationId: policies_faq
-      summary: Grounded, conservative answers to the most common Landing policy questions (deposits, pets, parking, cancellation, qualification, LandingFlex, utilities, move-in). Use this instead of guessing at policy specifics — where an exact number (deposit amount, cancellation window) depends on the home/market/reservation, the answer says so explicitly and points to get_quote, checkout, or Landing support rather than inventing a figure.
+      summary: Grounded, conservative answers to the most common Landing policy questions…
       parameters:
       - name: q
         in: query
@@ -363,7 +363,7 @@ paths:
   /api/public/status:
     get:
       operationId: status
-      summary: Health check.
+      summary: Health check
       parameters: []
       responses:
         '200':
