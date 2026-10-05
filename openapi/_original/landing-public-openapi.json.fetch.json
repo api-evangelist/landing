@@ -1,0 +1,12 @@
+{
+ "url": "https://www.hellolanding.com/api/public/openapi.json",
+ "requested_url": "https://www.hellolanding.com/api/public/openapi.json",
+ "status": 200,
+ "content_type": "application/json; charset=utf-8",
+ "bytes": 11220,
+ "sha256": "d0ce5528cf888742def64adab3a29f1bf17b64dbb91d48d96e115b43e41b95cd",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
